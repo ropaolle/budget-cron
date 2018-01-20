@@ -6,7 +6,7 @@ import {
   DB_USERS,
   DB_BUDGET_COLLECTION,
   DB_EXSPENSES_COLLECTION,
-} from './firebase';
+} from './firebase.mjs';
 
 const BACKUP_DIR = './backup';
 

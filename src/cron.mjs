@@ -1,12 +1,11 @@
 /* eslint no-param-reassign: 0 */
-import moment from 'moment';
 import chalk from 'chalk';
 
 import {
   database,
   DB_EXSPENSES_COLLECTION,
   DB_BUDGET_COLLECTION,
-} from './firebase';
+} from './firebase.mjs';
 
 function costPerMonthPerType(query) {
   return query.docs.reduce((counters, doc) => {
