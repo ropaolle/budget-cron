@@ -1,0 +1,10 @@
+[
+    {
+        "displayName": "",
+        "phoneNumber": "",
+        "emailVerified": false,
+        "email": "ropaolle@gmail.com",
+        "uid": "JylIcP0MwRgLnRCC2TcPy0Cf6cI3",
+        "photoURL": "https://www.gravatar.com/avatar/fda4a74c9e1390998254d6099052140d"
+    }
+]
