@@ -3,7 +3,6 @@ import serviceAccount from '../keys/firebaseKey.json';
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-
 });
 
 export const database = admin.firestore();

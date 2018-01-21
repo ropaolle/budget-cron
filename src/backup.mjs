@@ -8,7 +8,7 @@ import {
   DB_EXSPENSES_COLLECTION,
 } from './firebase.mjs';
 
-const BACKUP_DIR = './backup';
+const BACKUP_DIR = '~/budget-backup';
 
 function saveCollection(collection) {
   const filename = `${moment().format('YYYYMMDD-HHmmss')}-${collection}.txt`;
@@ -37,6 +37,8 @@ export default async function backupDbToFile() {
 
   const end = new Date() - start;
   console.info(`Execution time: ${chalk.red.bold(end)} ms\n`);
+
+  console.log(__filename, __dirname);
 
   return Promise.resolve('done');
 }
