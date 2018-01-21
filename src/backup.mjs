@@ -15,14 +15,16 @@ function saveCollection(collection) {
   const filename = `${moment().format('YYYYMMDD-HHmmss')}-${collection}.txt`;
   const wstream = fs.createWriteStream(`${BACKUP_DIR}/${filename}`);
   return database.collection(collection)
-    // .limit(2)
     .get()
     .then((snapshot) => {
-      console.log(`${chalk.blue(snapshot.docs.length)} records saved to ${chalk.white(BACKUP_DIR)}/${chalk.white(filename)}`);
+      console.log(`${snapshot.docs.length} records saved to ${BACKUP_DIR}/${filename}`);
       const data = snapshot.docs.map(doc => doc.data());
       wstream.write(JSON.stringify(data, null, 4));
     })
-    .then(() => { wstream.end(); });
+    .then(() => { wstream.end(); })
+    .catch(error => {
+      console.log("Firestore error:", error.message);
+  });
 }
 
 export default async function backupDbToFile() {
@@ -30,16 +32,9 @@ export default async function backupDbToFile() {
     fs.mkdirSync(BACKUP_DIR);
   }
 
-  const start = new Date();
-
   await saveCollection(DB_USERS);
   await saveCollection(DB_BUDGET_COLLECTION);
   await saveCollection(DB_EXSPENSES_COLLECTION);
 
-  const end = new Date() - start;
-  console.info(`Execution time: ${chalk.red.bold(end)} ms\n`);
-
-  console.log(process.env.HOME);
-
-  return Promise.resolve('done');
+  return Promise.resolve();
 }

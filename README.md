@@ -11,11 +11,21 @@ scp ~/Projects/budget-cron/keys/* olle@192.168.10.146:~/budget-cron/keys
 node --experimental-modules src/index
 # Crone
 crontab -e
-* * * * * cd ~/budget-cron/src && node --experimental-modules index.mjs
+* * * * * cd ~/budget-cron && node --experimental-modules src/index.mjs
 grep CRON /var/log/syslog
 sudo apt-get install postfix
 sudo tail -f /var/mail/olle
 find / -name "budget-backup"
+```
+
+### Crontab
+``` bash
+crontab -e
+* * * * * cd ~/budget-cron && node --experimental-modules src/index.mjs
+# Grep, tail, find
+grep CRON /var/log/syslog
+tail -f /var/log/syslog || grep --line-buffered CRON
+sudo find / -name "backup"
 ```
 
 # Info

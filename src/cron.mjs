@@ -1,5 +1,4 @@
 /* eslint no-param-reassign: 0 */
-import chalk from 'chalk';
 
 import {
   database,
@@ -80,17 +79,17 @@ function updateCache(cacheFunctions) {
 
       const budgetColl = database.collection(DB_BUDGET_COLLECTION);
       cacheFunctions.forEach((func) => {
-        console.log(`Creating ${chalk.white(func.name)}`);
+        console.log(`Creating ${func.name}`);
         batch.set(budgetColl.doc(func.name), func(snapshot));
       });
 
       return batch.commit();
+    }).catch(error => {
+      console.log("Firestore error:", error.message);
     });
 }
 
 export default async function cron() {
-  const start = new Date();
-
   await updateCache([
     costPerMonthPerCategori,
     costPerYearPerCategori,
@@ -99,8 +98,5 @@ export default async function cron() {
 
   await updateCache([autocompleteText]);
 
-  const end = new Date() - start;
-  console.info(`Execution time: ${chalk.red.bold(end)} ms\n`);
-
-  return Promise.resolve('done');
+  return Promise.resolve();
 }
