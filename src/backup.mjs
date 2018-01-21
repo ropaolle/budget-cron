@@ -8,7 +8,8 @@ import {
   DB_EXSPENSES_COLLECTION,
 } from './firebase.mjs';
 
-const BACKUP_DIR = '~/budget-backup';
+// const BACKUP_DIR = `${process.env.HOME}/budget-backup`;
+const BACKUP_DIR = `./backup`;
 
 function saveCollection(collection) {
   const filename = `${moment().format('YYYYMMDD-HHmmss')}-${collection}.txt`;
@@ -17,7 +18,7 @@ function saveCollection(collection) {
     // .limit(2)
     .get()
     .then((snapshot) => {
-      console.log(`${chalk.blue(snapshot.docs.length)} records saved to ${chalk.white(filename)}`);
+      console.log(`${chalk.blue(snapshot.docs.length)} records saved to ${chalk.white(BACKUP_DIR)}/${chalk.white(filename)}`);
       const data = snapshot.docs.map(doc => doc.data());
       wstream.write(JSON.stringify(data, null, 4));
     })
@@ -38,7 +39,7 @@ export default async function backupDbToFile() {
   const end = new Date() - start;
   console.info(`Execution time: ${chalk.red.bold(end)} ms\n`);
 
-  console.log(__filename, __dirname);
+  console.log(process.env.HOME);
 
   return Promise.resolve('done');
 }

@@ -6,14 +6,16 @@ git clone git@github.com:ropaolle/budget-cron.git
 npm i --production
 scp ~/.ssh/id* olle@192.168.10.146:~/.ssh
 scp ~/Projects/budget-cron/keys/* olle@192.168.10.146:~/budget-cron/keys
+#git pull git@github.com:ropaolle/budget-cron.git
 # Run
 node --experimental-modules src/index
 # Crone
 crontab -e
-* * * * * node --experimental-modules ~/budget-cron/src/index
+* * * * * cd ~/budget-cron/src && node --experimental-modules index.mjs
 grep CRON /var/log/syslog
 sudo apt-get install postfix
 sudo tail -f /var/mail/olle
+find / -name "budget-backup"
 ```
 
 # Info
